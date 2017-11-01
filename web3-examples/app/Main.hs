@@ -1,3 +1,4 @@
+{-# LANGAUGE DataKinds #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE QuasiQuotes #-}
 {-# LANGUAGE TemplateHaskell #-}
@@ -8,6 +9,7 @@ import           Network.Ethereum.Web3
 import           Network.Ethereum.Web3.Address
 import qualified Network.Ethereum.Web3.Eth as Eth
 import qualified Network.Ethereum.Web3.Net as Net
+import qualified Network.Ethereum.Web3.Web3 as Web3
 import           Network.Ethereum.Web3.TH
 
 
@@ -23,8 +25,9 @@ main = do
         netVersion <- Net.version
         blockNumber <- Eth.blockNumber
         balance <- Eth.getBalance coinbase Latest
+        accounts <- Eth.accounts
         hash <- Web3.sha3 "When to the sessions of sweet, silent thought"
         sig <- Eth.sign coinbase hash
         twoTimesSeven <- multiplySeven 2
-        return (netVersion, blockNumber, balance, sig, hash)
+        return (accounts, netVersion, blockNumber, balance, sig, hash)
     print result
