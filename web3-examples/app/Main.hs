@@ -25,6 +25,6 @@ main = do
         balance <- Eth.getBalance coinbase Latest
         hash <- Web3.sha3 "When to the sessions of sweet, silent thought"
         sig <- Eth.sign coinbase hash
-        twoTimesSeven <- multiplySeven
+        twoTimesSeven <- multiplySeven 2
         return (netVersion, blockNumber, balance, sig, hash)
     print result
