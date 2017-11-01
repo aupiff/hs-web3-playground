@@ -1,7 +1,11 @@
-{-# LANGAUGE DataKinds #-}
+{-# LANGUAGE DataKinds #-}
+{-# LANGUAGE DeriveDataTypeable #-}
+{-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE QuasiQuotes #-}
 {-# LANGUAGE TemplateHaskell #-}
+{-# OPTIONS_GHC -fno-cse #-}
 
 module Main where
 
@@ -11,6 +15,7 @@ import qualified Network.Ethereum.Web3.Eth as Eth
 import qualified Network.Ethereum.Web3.Net as Net
 import qualified Network.Ethereum.Web3.Web3 as Web3
 import           Network.Ethereum.Web3.TH
+import           Network.Ethereum.Web3.Types
 
 
 
@@ -18,6 +23,7 @@ import           Network.Ethereum.Web3.TH
 [abiFrom|data/Example.abi|]
 
 coinbase = "0x198e13017d2333712bd942d8b028610b95c363da"
+contractAddress = zero
 
 main :: IO ()
 main = do
@@ -28,6 +34,6 @@ main = do
         accounts <- Eth.accounts
         hash <- Web3.sha3 "When to the sessions of sweet, silent thought"
         sig <- Eth.sign coinbase hash
-        twoTimesSeven <- multiplySeven 2
+        twoTimesSeven <- multiplySeven contractAddress 2
         return (accounts, netVersion, blockNumber, balance, sig, hash)
     print result
