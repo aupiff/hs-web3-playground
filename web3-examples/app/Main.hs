@@ -18,8 +18,6 @@ import qualified Network.Ethereum.Web3.Web3 as Web3
 import           Network.Ethereum.Web3.TH
 import           Network.Ethereum.Web3.Types
 
-
-
 -- create functions to call the Example contract
 [abiFrom|data/Example.abi|]
 
@@ -42,7 +40,8 @@ testProgram = do
         blockNumber <- Eth.blockNumber
         balance <- Eth.getBalance coinbase Latest
         accounts <- Eth.accounts
-        hash <- Web3.sha3 "When to the sessions of sweet, silent thought"
+        hash <- Web3.sha3 "0x3922"
         sig <- Eth.sign coinbase hash
+        oneVal <- getOne contractAddress
         twoTimesSeven <- multiplySeven contractAddress 2
-        return $ show (accounts, netVersion, blockNumber, balance, sig, hash, contractAddress, twoTimesSeven)
+        return $ show (netVersion, blockNumber, balance, accounts, hash, sig, oneVal, twoTimesSeven)
