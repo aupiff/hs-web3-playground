@@ -12,4 +12,16 @@ contract Example {
     function hashBytes(bytes32 a) constant returns (bytes32) {
         return keccak256(a);
     }
+
+    function arrayTest(bytes32[3] a) returns (bytes32, bytes32, bytes32) {
+        return (a[0], a[1], a[2]);
+    }
+
+    function arrayTestC(bytes32[3] a) constant returns (bytes32, bytes32, bytes32) {
+        return (a[0], a[1], a[2]);
+    }
+
+    function dynArrayTestC(bytes32[] a) constant returns (bytes32) {
+        return (a[0]);
+    }
 }

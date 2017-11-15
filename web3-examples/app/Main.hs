@@ -9,7 +9,11 @@
 
 module Main where
 
+import qualified Data.ByteArray as BA
+import qualified Data.ByteString.Base16 as BS16
 import           Data.Either (fromRight)
+import qualified Data.Text as T
+import qualified Data.Text.Encoding as T
 import           Network.Ethereum.Web3
 import qualified Network.Ethereum.Web3.Address as Addr
 import qualified Network.Ethereum.Web3.Eth as Eth
@@ -23,6 +27,15 @@ import           Network.Ethereum.Web3.Types
 
 coinbase = "0x198e13017d2333712bd942d8b028610b95c363da"
 contractAddress = fromRight Addr.zero $ Addr.fromText "0x6cec7c2c13fc0d8a4ece2e9711e3a965b8cd9c54"
+
+bytesVal :: BytesN 32
+bytesVal = BytesN . BA.convert . fst . BS16.decode . T.encodeUtf8 $ "0000000000000000000000000000000000000000000000000000000000000031"
+
+bytesVal2 :: BytesN 32
+bytesVal2 = BytesN . BA.convert . fst . BS16.decode . T.encodeUtf8 $ "0000000000000000000000000000000000000000000000000000000000000032"
+
+bytesVal3 :: BytesN 32
+bytesVal3 = BytesN . BA.convert . fst . BS16.decode . T.encodeUtf8 $ "0000000000000000000000000000000000000000000000000000000000000033"
 
 data TestProvider
 
@@ -44,4 +57,5 @@ testProgram = do
         sig <- Eth.sign coinbase hash
         oneVal <- getOne contractAddress
         twoTimesSeven <- multiplySeven contractAddress 2
-        return $ show (netVersion, blockNumber, balance, accounts, hash, sig, oneVal, twoTimesSeven)
+        res <- arrayTest contractAddress nopay [bytesVal, bytesVal2, bytesVal3]
+        return $ show (netVersion, blockNumber, balance, accounts, hash, sig, oneVal, twoTimesSeven, res)

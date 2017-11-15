@@ -18,6 +18,50 @@
     "type": "function"
   },
   {
+    "constant": false,
+    "inputs": [
+      {
+        "name": "a",
+        "type": "bytes32[3]"
+      }
+    ],
+    "name": "arrayTest",
+    "outputs": [
+      {
+        "name": "",
+        "type": "bytes32"
+      },
+      {
+        "name": "",
+        "type": "bytes32"
+      },
+      {
+        "name": "",
+        "type": "bytes32"
+      }
+    ],
+    "payable": false,
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [
+      {
+        "name": "a",
+        "type": "bytes32[]"
+      }
+    ],
+    "name": "dynArrayTestC",
+    "outputs": [
+      {
+        "name": "",
+        "type": "bytes32"
+      }
+    ],
+    "payable": false,
+    "type": "function"
+  },
+  {
     "constant": true,
     "inputs": [],
     "name": "getOne",
@@ -40,6 +84,32 @@
     ],
     "name": "hashBytes",
     "outputs": [
+      {
+        "name": "",
+        "type": "bytes32"
+      }
+    ],
+    "payable": false,
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [
+      {
+        "name": "a",
+        "type": "bytes32[3]"
+      }
+    ],
+    "name": "arrayTestC",
+    "outputs": [
+      {
+        "name": "",
+        "type": "bytes32"
+      },
+      {
+        "name": "",
+        "type": "bytes32"
+      },
       {
         "name": "",
         "type": "bytes32"
