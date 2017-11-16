@@ -48,6 +48,40 @@
     "inputs": [
       {
         "name": "a",
+        "type": "bytes32[3]"
+      },
+      {
+        "name": "b",
+        "type": "bytes32"
+      }
+    ],
+    "name": "arrayTestC",
+    "outputs": [
+      {
+        "name": "",
+        "type": "bytes32"
+      },
+      {
+        "name": "",
+        "type": "bytes32"
+      },
+      {
+        "name": "",
+        "type": "bytes32"
+      },
+      {
+        "name": "",
+        "type": "bytes32"
+      }
+    ],
+    "payable": false,
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [
+      {
+        "name": "a",
         "type": "bytes32[]"
       }
     ],
@@ -96,20 +130,36 @@
     "constant": true,
     "inputs": [
       {
-        "name": "a",
+        "name": "ucac",
+        "type": "bytes32"
+      },
+      {
+        "name": "creditor",
+        "type": "address"
+      },
+      {
+        "name": "debtor",
+        "type": "address"
+      },
+      {
+        "name": "amount",
+        "type": "uint256"
+      },
+      {
+        "name": "sig1",
         "type": "bytes32[3]"
+      },
+      {
+        "name": "sig2",
+        "type": "bytes32[3]"
+      },
+      {
+        "name": "memo",
+        "type": "bytes32"
       }
     ],
-    "name": "arrayTestC",
+    "name": "issueCredit",
     "outputs": [
-      {
-        "name": "",
-        "type": "bytes32"
-      },
-      {
-        "name": "",
-        "type": "bytes32"
-      },
       {
         "name": "",
         "type": "bytes32"

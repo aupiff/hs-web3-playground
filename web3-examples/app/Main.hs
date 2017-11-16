@@ -11,6 +11,7 @@ module Main where
 
 import qualified Data.ByteArray as BA
 import qualified Data.ByteString.Base16 as BS16
+import           Data.Default
 import           Data.Either (fromRight)
 import qualified Data.Text as T
 import qualified Data.Text.Encoding as T
@@ -55,7 +56,11 @@ testProgram = do
         accounts <- Eth.accounts
         hash <- Web3.sha3 "0x3922"
         sig <- Eth.sign coinbase hash
-        oneVal <- getOne contractAddress
-        twoTimesSeven <- multiplySeven contractAddress 2
-        res <- arrayTest contractAddress nopay [bytesVal, bytesVal2, bytesVal3]
-        return $ show (netVersion, blockNumber, balance, accounts, hash, sig, oneVal, twoTimesSeven, res)
+        oneVal <- getOne callVal
+        twoTimesSeven <- multiplySeven callVal 2
+        res <- arrayTest callVal [bytesVal, bytesVal2, bytesVal3]
+        res2 <- arrayTestC callVal [bytesVal, bytesVal2, bytesVal3] bytesVal2
+        return $ show (netVersion, blockNumber, balance, accounts, hash, sig, oneVal, twoTimesSeven, res, res2)
+    where
+        bytesArr = [bytesVal, bytesVal2, bytesVal3]
+        callVal = def { callTo = contractAddress, callFrom = Just coinbase }
