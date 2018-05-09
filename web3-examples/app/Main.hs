@@ -40,7 +40,6 @@ testProgram :: Web3 String
 testProgram = do
         currentNonce <- getTransactionCount coinbase Latest
         let callVal = def { callTo = Just contractAddress
-                          , callFrom = Just coinbase
                           , callNonce = Just currentNonce
                           , callGasPrice = Just 10000000000000
                           }
