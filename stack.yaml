@@ -15,7 +15,7 @@
 # resolver:
 #  name: custom-snapshot
 #  location: "./custom-snapshot.yaml"
-resolver: nightly-2017-11-01
+resolver: lts-11.7
 
 # User packages to be built.
 # Various formats can be used as shown in the example below.
@@ -37,11 +37,16 @@ resolver: nightly-2017-11-01
 # will not be run. This is useful for tweaking upstream packages.
 packages:
     - ./web3-examples
-    - ../../ethcom/hs-web3
+    - location:
+        git: git@github.com:aupiff/hs-web3.git
+        commit: 103ea4f6357385ef02ad8fa3add74ac482fb4ff6
+      extra-dep: true
 
 # Dependency packages to be pulled from upstream that are not in the resolver
 # (e.g., acme-missiles-0.3)
-extra-deps: []
+extra-deps:
+    - relapse-1.0.0.0
+    - secp256k1-0.5.2
 
 # Override default flag values for local packages and extra-deps
 flags: {}

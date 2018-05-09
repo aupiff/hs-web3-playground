@@ -15,52 +15,38 @@ import           Data.Default
 import           Data.Either (fromRight)
 import qualified Data.Text as T
 import qualified Data.Text.Encoding as T
+import           Network.Ethereum.Contract.TH
 import           Network.Ethereum.Web3
-import qualified Network.Ethereum.Web3.Address as Addr
-import qualified Network.Ethereum.Web3.Eth as Eth
-import qualified Network.Ethereum.Web3.Net as Net
-import qualified Network.Ethereum.Web3.Web3 as Web3
-import           Network.Ethereum.Web3.TH
+import           Network.Ethereum.Web3.Eth      (getTransactionCount)
 import           Network.Ethereum.Web3.Types
+import           Network.Ethereum.Web3.Provider
 
 -- create functions to call the Example contract
 [abiFrom|data/Example.abi|]
 
+privKey = fst . BS16.decode $ T.encodeUtf8 "7231a774a538fce22a329729b03087de4cb4a1119494db1c10eae3bb491823e7"
 coinbase = "0x198e13017d2333712bd942d8b028610b95c363da"
-contractAddress = fromRight Addr.zero $ Addr.fromText "0x6cec7c2c13fc0d8a4ece2e9711e3a965b8cd9c54"
+contractAddress = "0x6cec7c2c13fc0d8a4ece2e9711e3a965b8cd9c54"
 
-bytesVal :: BytesN 32
-bytesVal = BytesN . BA.convert . fst . BS16.decode . T.encodeUtf8 $ "0000000000000000000000000000000000000000000000000000000000000031"
-
-bytesVal2 :: BytesN 32
-bytesVal2 = BytesN . BA.convert . fst . BS16.decode . T.encodeUtf8 $ "0000000000000000000000000000000000000000000000000000000000000032"
-
-bytesVal3 :: BytesN 32
-bytesVal3 = BytesN . BA.convert . fst . BS16.decode . T.encodeUtf8 $ "0000000000000000000000000000000000000000000000000000000000000033"
-
-data TestProvider
-
-instance Provider TestProvider where
-    rpcUri = return "http://localhost:8548"
+provider = Provider (HttpProvider "http://localhost:8548")
+                    (Just (SigningConfiguration privKey 88888))
 
 main :: IO ()
 main = do
-    result <- runWeb3' testProgram
+    result <- runWeb3' provider testProgram
     print result
 
-testProgram :: Web3 TestProvider String
+testProgram :: Web3 String
 testProgram = do
-        netVersion <- Net.version
-        blockNumber <- Eth.blockNumber
-        balance <- Eth.getBalance coinbase Latest
-        accounts <- Eth.accounts
-        hash <- Web3.sha3 "0x3922"
-        sig <- Eth.sign coinbase hash
-        oneVal <- getOne callVal
-        twoTimesSeven <- multiplySeven callVal 2
-        res <- arrayTest callVal [bytesVal, bytesVal2, bytesVal3]
-        res2 <- arrayTestC callVal [bytesVal, bytesVal2, bytesVal3] bytesVal2
-        return $ show (netVersion, blockNumber, balance, accounts, hash, sig, oneVal, twoTimesSeven, res, res2)
-    where
-        bytesArr = [bytesVal, bytesVal2, bytesVal3]
-        callVal = def { callTo = contractAddress, callFrom = Just coinbase }
+        currentNonce <- getTransactionCount coinbase Latest
+        let callVal = def { callTo = Just contractAddress
+                          , callFrom = Just coinbase
+                          , callNonce = Just currentNonce
+                          , callGasPrice = Just 10000000000000
+                          }
+            secondCallVal = def { callTo = Just contractAddress
+                                , callFrom = Just coinbase
+                                }
+        setA callVal 1023
+        val <- getDoubleA secondCallVal
+        return $ show val

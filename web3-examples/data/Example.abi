@@ -1,13 +1,8 @@
 [
   {
     "constant": true,
-    "inputs": [
-      {
-        "name": "a",
-        "type": "uint256"
-      }
-    ],
-    "name": "multiplySeven",
+    "inputs": [],
+    "name": "a",
     "outputs": [
       {
         "name": "",
@@ -15,157 +10,35 @@
       }
     ],
     "payable": false,
+    "stateMutability": "view",
     "type": "function"
   },
   {
     "constant": false,
     "inputs": [
       {
-        "name": "a",
-        "type": "bytes32[3]"
+        "name": "val",
+        "type": "uint256"
       }
     ],
-    "name": "arrayTest",
-    "outputs": [
-      {
-        "name": "",
-        "type": "bytes32"
-      },
-      {
-        "name": "",
-        "type": "bytes32"
-      },
-      {
-        "name": "",
-        "type": "bytes32"
-      }
-    ],
+    "name": "setA",
+    "outputs": [],
     "payable": false,
-    "type": "function"
-  },
-  {
-    "constant": true,
-    "inputs": [
-      {
-        "name": "a",
-        "type": "bytes32[3]"
-      },
-      {
-        "name": "b",
-        "type": "bytes32"
-      }
-    ],
-    "name": "arrayTestC",
-    "outputs": [
-      {
-        "name": "",
-        "type": "bytes32"
-      },
-      {
-        "name": "",
-        "type": "bytes32"
-      },
-      {
-        "name": "",
-        "type": "bytes32"
-      },
-      {
-        "name": "",
-        "type": "bytes32"
-      }
-    ],
-    "payable": false,
-    "type": "function"
-  },
-  {
-    "constant": true,
-    "inputs": [
-      {
-        "name": "a",
-        "type": "bytes32[]"
-      }
-    ],
-    "name": "dynArrayTestC",
-    "outputs": [
-      {
-        "name": "",
-        "type": "bytes32"
-      }
-    ],
-    "payable": false,
+    "stateMutability": "nonpayable",
     "type": "function"
   },
   {
     "constant": true,
     "inputs": [],
-    "name": "getOne",
+    "name": "getDoubleA",
     "outputs": [
       {
         "name": "",
-        "type": "uint8"
-      }
-    ],
-    "payable": false,
-    "type": "function"
-  },
-  {
-    "constant": true,
-    "inputs": [
-      {
-        "name": "a",
-        "type": "bytes32"
-      }
-    ],
-    "name": "hashBytes",
-    "outputs": [
-      {
-        "name": "",
-        "type": "bytes32"
-      }
-    ],
-    "payable": false,
-    "type": "function"
-  },
-  {
-    "constant": true,
-    "inputs": [
-      {
-        "name": "ucac",
-        "type": "bytes32"
-      },
-      {
-        "name": "creditor",
-        "type": "address"
-      },
-      {
-        "name": "debtor",
-        "type": "address"
-      },
-      {
-        "name": "amount",
         "type": "uint256"
-      },
-      {
-        "name": "sig1",
-        "type": "bytes32[3]"
-      },
-      {
-        "name": "sig2",
-        "type": "bytes32[3]"
-      },
-      {
-        "name": "memo",
-        "type": "bytes32"
-      }
-    ],
-    "name": "issueCredit",
-    "outputs": [
-      {
-        "name": "",
-        "type": "bytes32"
       }
     ],
     "payable": false,
+    "stateMutability": "view",
     "type": "function"
   }
 ]
