@@ -39,7 +39,7 @@ packages:
     - ./web3-examples
     - location:
         git: git@github.com:aupiff/hs-web3.git
-        commit: 103ea4f6357385ef02ad8fa3add74ac482fb4ff6
+        commit: 4cfd0ae428828de2a942e22e2825ea4539a312c2
       extra-dep: true
 
 # Dependency packages to be pulled from upstream that are not in the resolver
